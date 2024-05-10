@@ -1,0 +1,62 @@
+<html lang="es">
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="head">
+    <h1>conexion api ejercicio 3</h1>
+  </div>
+  <div id="container"></div>
+</body>
+
+</html>
+
+
+<script>
+  fetch('http://10.200.3.35/evaluacion_desarrollador_servicio_4_0')
+    // Exito
+    .then(response => response.json())  // convertir a json
+    .then(json => console.log(json))    //imprimir los datos en la consola
+    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+</script>
+
+
+<script>
+  // Obtenemos todos los datos
+fetch('http://10.200.3.35/evaluacion_desarrollador_servicio_4_0')
+.then(response => response.json())
+.then(json => {
+    printPokemons(json.results);
+});
+
+// Pinta todos los pokemos insertando un HTML dentro del #container
+function printPokemons(pokemons) {
+const container = document.getElementById('container')
+pokemons.forEach(pokemon => {
+container.innerHTML = `
+${container.innerHTML}
+<div class="card">
+<h2>${pokemon.tipo.charAt(0).toUpperCase() + pokemon.tipo.slice(1)}</h2>
+</card>
+`;
+});
+}
+
+// En esta ruta de la API no nos viene el id de cada pokemon, pero si que nos viene
+// una URL, para poder obtener todos los datos de ese pokemon, la cual contiene su ID
+// así que le extraigo el ID a la URL
+function getPokemonId(url) {
+return url.replace('http://10.200.3.35/evaluacion_desarrollador_servicio_4_0', '').replace('/','')
+}
+
+</script>
